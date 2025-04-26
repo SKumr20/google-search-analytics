@@ -1,50 +1,57 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { google } from "googleapis";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
+import { google } from 'googleapis';
 
-// Initialize OAuth2 client
-const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  "http://localhost:3000/api/auth/callback/google"
-);
+export default async function handler(req, res) {
+  const session = await getServerSession(req, res, authOptions);
+  
+  if (!session) {
+    return res.status(401).json({ error: "You must be signed in to access this API" });
+  }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { siteUrl, startDate, endDate } = req.query;
-
+  
   if (!siteUrl || !startDate || !endDate) {
-    return res.status(400).json({ error: "Missing parameters: siteUrl, startDate, endDate are required." });
+    return res.status(400).json({ error: "Missing required parameters" });
   }
-
-  // Extract access token from Authorization header
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Missing or invalid Authorization header" });
-  }
-  const accessToken = authHeader.replace("Bearer ", "");
 
   try {
-    // Set OAuth2 credentials
-    oauth2Client.setCredentials({ access_token: accessToken });
-
-    // Initialize the Search Console API client
-    const searchconsole = google.searchconsole({ version: "v1", auth: oauth2Client });
-
-    // Fetch search analytics data
-    const response = await searchconsole.searchanalytics.query({
-      siteUrl: siteUrl as string,
-      requestBody: {
-        startDate: startDate as string,
-        endDate: endDate as string,
-        dimensions: ["query"],
-        rowLimit: 10, // You can adjust this as needed
-      },
+    // Configure Google OAuth2 client
+    const oauth2Client = new google.auth.OAuth2();
+    oauth2Client.setCredentials({
+      access_token: session.accessToken
     });
 
-    const data = response.data.rows || [];
+    // Initialize the Search Console API
+    const searchconsole = google.searchconsole({
+      version: 'v1',
+      auth: oauth2Client
+    });
 
-    return res.status(200).json(data);
+    // Make the API request to Google Search Console
+    const response = await searchconsole.searchanalytics.query({
+      siteUrl: siteUrl,
+      requestBody: {
+        startDate: startDate,
+        endDate: endDate,
+        dimensions: ['query'],
+        rowLimit: 10 // Adjust based on your needs
+      }
+    });
+
+    // Return the data
+    return res.status(200).json(response.data.rows || []);
+    
   } catch (error) {
-    console.error("Error fetching GSC data:", error);
+    console.error('Error fetching GSC data:', error);
+    
+    // Handle specific Google API errors
+    if (error.response && error.response.data) {
+      return res.status(error.response.status || 500).json({ 
+        error: error.response.data.error || "Error accessing Google Search Console API" 
+      });
+    }
+    
     return res.status(500).json({ error: "Failed to fetch GSC data" });
   }
 }

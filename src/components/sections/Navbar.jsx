@@ -22,10 +22,10 @@ const Navbar = () => {
         {/* Nav links */}
         <div className="hidden md:flex">
           <Link href='/editor'>
-            <Button variant='nav' size='sm'>Get started</Button>
+            <Button variant='ghost' size='sm'>Get started</Button>
           </Link>
           <Link href='#'>
-            <Button variant='nav' size='sm'>Docs</Button>
+            <Button variant='ghost' size='sm'>Docs</Button>
           </Link>
         </div>
       </div>
