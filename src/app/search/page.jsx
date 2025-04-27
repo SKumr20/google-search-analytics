@@ -431,7 +431,7 @@ export default function Home() {
             {error && (
               <Alert variant="destructive">
                 <AlertTitle>Error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{typeof error === 'object' ? error.message || JSON.stringify(error) : error}</AlertDescription>
               </Alert>
             )}
             
