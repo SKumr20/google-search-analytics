@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Custom Google Search Console Report Builder
 
-## Getting Started
+A powerful tool for building custom reports based on data from Google Search Console (GSC). With features like drag-and-drop report creation, CSV export, data duration selection, and integration with Next.js authentication (Next Auth), this app helps you visualize and analyze your website's performance with ease.
 
-First, run the development server:
+## Features
+
+- **Sign In with Next Auth**: Securely sign in using your Google account to access your reports and metrics.
+- **Custom Report Building**: Drag and drop data types like clicks, impressions, and more to build your own custom reports.
+- **Google Search Console Integration**: Fetch data directly from Google Search Console to generate detailed reports on your website's performance.
+- **CSV Export**: Export your custom reports in CSV format for easy analysis and sharing.
+- **Data Duration Selection**: Choose the time range for the data you want to visualize (daily, weekly, or custom).
+- **Real-Time Data**: Get up-to-date data from Google Search Console to monitor your site's performance.
+- **User Access Control**: Manage user permissions and access to your reports.
+- **Comprehensive Metrics**: Track important GSC metrics such as clicks, impressions, average position, and more.
+
+
+### Technologies Used
+1. Next.js for the frontend
+
+2. Next Auth for authentication
+
+3. Google Search Console API for fetching GSC data
+
+4. Tailwind CSS for styling
+
+5. Tabler Icons for UI components
+
+
+
+## Installation
+
+Follow these steps to set up the project locally:
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/gsc-report-builder.git
+cd gsc-report-builder
+```
+
+### 2. Install Dependencies
+```bash
+npm install
+```
+
+### 3. Setup Environment Variables
+
+Create a .env.local in your root
+
+```bash
+NEXTAUTH_URL=http://localhost:3000
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GSC_API_KEY=your-gsc-api-key
+```
+
+### 4. Done! Run your app using
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
