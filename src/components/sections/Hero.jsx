@@ -1,8 +1,8 @@
 "use client";
-
 import { motion } from "motion/react";
 import React from "react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -23,10 +23,11 @@ export default function Hero() {
           className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
           Scale your user base instantly with insights.
         </div>
-        <button
-          className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
-          Debug now
+        <Link href='/search'>
+        <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
+          Get Started
         </button>
+        </Link> 
       </motion.div>
     </AuroraBackground>
   );
