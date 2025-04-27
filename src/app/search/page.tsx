@@ -582,9 +582,9 @@ export default function Home() {
                         ) : (
                           <div className="flex items-center justify-center h-40 border-2 border-dashed rounded-lg">
                             <div className="text-center">
-                              <LayoutIcon className="mx-auto h-12 w-12 text-gray-300" />
-                              <h3 className="mt-2 text-lg font-medium text-gray-900">No blocks added</h3>
-                              <p className="mt-1 text-sm text-gray-500">
+                              <LayoutIcon className="mx-auto h-12 w-12 text-muted-foreground" />
+                              <h3 className="mt-2 text-lg font-medium">No blocks added</h3>
+                              <p className="mt-1 text-sm text-muted-foreground">
                                 Add some blocks to start building your report
                               </p>
                             </div>
@@ -617,32 +617,35 @@ export default function Home() {
                     </CardHeader>
                     <CardContent>
                       <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
+                        <table className="w-full text-sm border-collapse">
                           <thead>
-                            <tr className="border-b">
-                              <th className="text-left py-3 px-4 font-medium">Query</th>
+                            <tr className="border-b border-border">
+                              <th className="text-left py-3 px-4 font-medium text-foreground">Query</th>
                               {reportBlocks.map((block) => {
                                 const metricLabel = METRICS.find(m => m.value === block.metric)?.label || block.metric;
                                 const timeLabel = TIME_RANGES.find(t => t.value === block.timeRange)?.label || block.timeRange;
                                 return (
-                                  <th key={block.id} className="text-left py-3 px-4 font-medium">
+                                  <th key={block.id} className="text-left py-3 px-4 font-medium text-foreground">
                                     {`${metricLabel} ${timeLabel}`}
                                   </th>
                                 );
                               })}
-                              <th className="text-left py-3 px-4 font-medium">Category</th>
+                              <th className="text-left py-3 px-4 font-medium text-foreground">Category</th>
                             </tr>
                           </thead>
                           <tbody>
                             {processedData.slice(0, 100).map((item, index) => (
-                              <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : ""}>
-                                <td className="py-2 px-4">{item.query}</td>
+                              <tr 
+                                key={index} 
+                                className={index % 2 === 0 ? "bg-muted/50" : ""}
+                              >
+                                <td className="py-2 px-4 text-foreground">{item.query}</td>
                                 {reportBlocks.map((block) => (
-                                  <td key={block.id} className="py-2 px-4">
+                                  <td key={block.id} className="py-2 px-4 text-foreground">
                                     {item[block.metric] || "-"}
                                   </td>
                                 ))}
-                                <td className="py-2 px-4">
+                                <td className="py-2 px-4 text-foreground">
                                   Not Categorized
                                 </td>
                               </tr>

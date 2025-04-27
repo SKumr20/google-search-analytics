@@ -80,7 +80,7 @@ const Navbar = () => {
           </Button>
         )}
         
-        {/* Mobile menu - now using dropdown instead of sheet */}
+        {/* Mobile menu */}
         <div className="md:hidden flex items-center gap-2">
           {!isAuthenticated && (
             <Button variant="outline" size="sm" onClick={() => signIn()}>
