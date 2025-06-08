@@ -23,7 +23,7 @@ const Navbar = () => {
         {/* Left - Title and logo */}
         <Link href='/' className="flex items-center gap-2 hover:opacity-60 transition duration-200">
           <SearchCheckIcon strokeWidth={1.5} />
-          <h2 className="font-bold">Serprisingly</h2>
+          <h2 className="font-bold">Buildr</h2>
         </Link>
         {/* Nav links */}
         <div className="hidden md:flex">
